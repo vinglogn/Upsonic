@@ -423,13 +423,12 @@ def _create_openrouter_model(model_name: str):
     # If model_name starts with openrouter/, remove it
     if model_name.startswith("openrouter/"):
         model_name = model_name.split("openrouter/", 1)[1]
-    base_url = Configuration.get("OPENROUTER_BASE_URL")
+    base_url = Configuration.get("OPENROUTER_BASE_URL", "https://openrouter.ai/api/v1")
     return OpenAIModel(
         model_name,
         provider=OpenAIProvider(
-            base_url='https://openrouter.ai/api/v1',
+            base_url=base_url,
             api_key=api_key,
-            base_url=base_url
         )
     ), None
 

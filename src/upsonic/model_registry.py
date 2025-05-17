@@ -31,7 +31,7 @@ ModelNames = Literal[
     "openrouter/<provider>/<model>",
     "openai/qwen-plus-latest",
     "openai/qwen3-235b-a22b",
-    "openaiqwen3-30b-a3b",
+    "openai/qwen3-30b-a3b",
     "openai/qwen3-32b",
     "openai/qwen3-14b",
 ]

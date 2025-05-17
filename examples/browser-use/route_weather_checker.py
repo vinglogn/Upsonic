@@ -24,13 +24,13 @@ pip install upsonic browser-use playwright
 
 import sys
 import os
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__, '../../src'))))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../src')))
 
 from upsonic import Agent, Task, ObjectResponse
 from upsonic.client.tools import BrowserUse # Importing BrowserUse
 
 
-route_weather_agent = Agent("Route Weather Checker", model="deepseek/deepseek-chat", reflection=True) #If you yuse to Azure please do model="azure/gpt-4o" 
+route_weather_agent = Agent("Route Weather Checker", model="openai/qwen3-30b-a3b", reflection=True) #If you yuse to Azure please do model="azure/gpt-4o" 
 
 # Define response format for creating route
 class Route(ObjectResponse):
