@@ -341,13 +341,13 @@ async def handle_compression_retry(prompt, images, tools, llm_model, response_fo
     except Exception as e:
         raise e  # Re-raise for consistent error handling
 
-def _create_openai_client(api_key_name="OPENAI_API_KEY"):
+def _create_openai_client(api_key_name="OPENAI_API_KEY", api_base_url="OPENAI_BASE_URL"):
     """Helper function to create an OpenAI client with the specified API key."""
     api_key = Configuration.get(api_key_name)
     if not api_key:
         return None, {"status_code": 401, "detail": f"No API key provided. Please set {api_key_name} in your configuration."}
-    
-    client = AsyncOpenAI(api_key=api_key)
+    base_url = Configuration.get(api_base_url)
+    client = AsyncOpenAI(api_key=api_key, base_url=base_url)
     return client, None
 
 def _create_azure_openai_client():
@@ -423,12 +423,13 @@ def _create_openrouter_model(model_name: str):
     # If model_name starts with openrouter/, remove it
     if model_name.startswith("openrouter/"):
         model_name = model_name.split("openrouter/", 1)[1]
-    
+    base_url = Configuration.get("OPENROUTER_BASE_URL")
     return OpenAIModel(
         model_name,
         provider=OpenAIProvider(
             base_url='https://openrouter.ai/api/v1',
-            api_key=api_key
+            api_key=api_key,
+            base_url=base_url
         )
     ), None
 

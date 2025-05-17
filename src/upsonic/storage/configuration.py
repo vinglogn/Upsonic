@@ -128,6 +128,7 @@ class ConfigManager:
 Configuration = ConfigManager()
 
 Configuration.initialize("OPENAI_API_KEY")
+Configuration.initialize("OPENAI_BASE_URL")
 Configuration.initialize("ANTHROPIC_API_KEY")
 Configuration.initialize("AZURE_OPENAI_ENDPOINT")
 Configuration.initialize("AZURE_OPENAI_API_VERSION")
@@ -138,6 +139,7 @@ Configuration.initialize("AWS_REGION")
 Configuration.initialize("DEEPSEEK_API_KEY")
 Configuration.initialize("GOOGLE_GLA_API_KEY")
 Configuration.initialize("OPENROUTER_API_KEY")
+Configuration.initialize("OPENROUTER_BASE_URL")
 
 Configuration.initialize("OLLAMA_BASE_URL")
 

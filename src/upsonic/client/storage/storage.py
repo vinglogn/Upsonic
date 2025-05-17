@@ -17,6 +17,7 @@ class ClientConfig(BaseModel):
     DEFAULT_LLM_MODEL: str = Field(default="openai/gpt-4o")
     
     OPENAI_API_KEY: str | None = Field(default_factory=lambda: os.getenv("OPENAI_API_KEY"))
+    OPENAI_BASE_URL: str | None = Field(default_factory=lambda: os.getenv("OPENAI_BASE_URL"))
 
     ANTHROPIC_API_KEY: str | None = Field(default_factory=lambda: os.getenv("ANTHROPIC_API_KEY"))
     
@@ -33,6 +34,8 @@ class ClientConfig(BaseModel):
     GOOGLE_GLA_API_KEY: str | None = Field(default_factory=lambda: os.getenv("GOOGLE_GLA_API_KEY"))
     
     OPENROUTER_API_KEY: str | None = Field(default_factory=lambda: os.getenv("OPENROUTER_API_KEY"))
+    OPENROUTER_BASE_URL: str | None = Field(default_factory=lambda: os.getenv("OPENROUTER_BASE_URL"))
+
 
 
 

@@ -139,12 +139,14 @@ def get_llm():
     # Handle regular OpenAI
     elif llm_model in openai_model_mapping:
         openai_api_key = Configuration.get("OPENAI_API_KEY")
+        openai_base_url = Configuration.get("OPENAI_BASE_URL")
         if not openai_api_key:
             raise ValueError("OpenAI API key not found in configuration")
         from langchain_openai import ChatOpenAI
         llm = ChatOpenAI(
             model_name=openai_model_mapping[llm_model],
             openai_api_key=openai_api_key,
+            base_url=openai_base_url,
         )
 
     # Handle Claude (Anthropic)
@@ -189,6 +191,34 @@ def get_llm():
             model_name=deepseek_model_mapping[llm_model],
             api_key=deepseek_api_key,
             base_url="https://api.deepseek.com/v1"
+        )
+
+    elif llm_model.startswith("openai/"):
+        openai_api_key = Configuration.get("OPENAI_API_KEY")
+        openai_base_url = Configuration.get("OPENAI_BASE_URL")
+        if not openai_api_key:
+            raise ValueError("OpenAI API key not found in configuration")
+        
+        model_name = llm_model.split("openai/", 1)[1]
+        from langchain_openai import ChatOpenAI
+        llm = ChatOpenAI(
+            model_name=model_name,
+            api_key=openai_api_key,
+            base_url=openai_base_url
+        )
+
+    elif llm_model.startswith("openrouter/"):
+        openrouter_api_key = Configuration.get("OPENROUTER_API_KEY")
+        openrouter_base_url = Configuration.get("OPENROUTER_BASE_URL")
+        if not openrouter_api_key:
+            raise ValueError("OpenRouter API key not found in configuration")
+        
+        model_name = llm_model.split("openrouter/", 1)[1]
+        from langchain_openai import ChatOpenAI
+        llm = ChatOpenAI(
+            model_name=model_name,
+            api_key=openrouter_api_key,
+            base_url=openrouter_base_url
         )
     
     else:
