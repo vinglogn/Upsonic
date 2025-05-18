@@ -21,9 +21,9 @@ AI-powered agent to scrape and summarize the latest stock market news.
 pip install upsonic browser-use playwright
 ```
 """
-import sys
-import os
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../src')))
+# import sys
+# import os
+# sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../src')))
 
 from upsonic import Agent, Task, ObjectResponse
 from upsonic.client.tools import BrowserUse

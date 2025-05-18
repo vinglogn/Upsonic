@@ -242,6 +242,17 @@ def get_model_registry_entry(llm_model: str):
             "pricing": {"input": 0.0, "output": 0.0},
             "required_environment_variables": ["OPENROUTER_API_KEY"]
         }
+
+    if llm_model.startswith("openai/"):
+        # Extract the model name after openai/
+        model_name = llm_model.split("openai/", 1)[1]
+        return {
+            "provider": "openai",
+            "model_name": model_name,  # Use the full model name as provided
+            "capabilities": [],
+            "pricing": {"input": 0.0, "output": 0.0},
+            "required_environment_variables": ["OPENAI_API_KEY", "OPENAI_BASE_URL"]
+        }
     
     # Try case-insensitive match as fallback
     llm_model_lower = llm_model.lower()
