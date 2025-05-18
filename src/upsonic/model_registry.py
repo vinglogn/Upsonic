@@ -306,7 +306,7 @@ def get_model_settings(llm_model: str, tools=None):
         if "qwen3" in model_info["model_name"]:
             import copy
             model_settings = copy.deepcopy(model_settings)
-            model_settings.extra_body = {"enable_thinking":False}
+            model_settings["extra_body"] = {"enable_thinking":False}
             return model_settings
         return model_settings
     
