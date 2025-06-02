@@ -29,25 +29,27 @@ from upsonic import Agent, Task, ObjectResponse
 from upsonic.client.tools import BrowserUse
 
 # Initialize the AI agent
-news_agent = Agent("Stocks News Scraper", model="openai/qwen-turbo-latest", reflection=True) # If using Azure, set model="azure/gpt-4o"
+news_agent = Agent("Weather Query", model="openai/qwen-turbo-latest", reflection=True) # If using Azure, set model="azure/gpt-4o"
 
-# Define response format for stock news
-class StockNews(ObjectResponse):
-    headline: str
-    source: str
-    link: str
 
-class StockNewsList(ObjectResponse):
-    news: list[StockNews]
+class Weather(ObjectResponse):
+    temperature: str
+    conditions: str
+    location: str
+    humidity: str
+    wind_speed: str
+    precipitation: str
+    pressure: str
+    visibility: str
+    uv_index: str
+    sunrise: str
+    sunset: str
 
-# Define stock symbol
-stock_symbol = "TSLA"
 
 # Task to search for the latest stock news using Browser Use
 news_task = Task(
-    "Go to bing.com and search for the latest news articles related to stock symbol and return headlines with sources and links.",
+    "go to bing.com search the wheather of nanjing todyay",
     tools=[BrowserUse],
-    response_format=StockNewsList,
-    context=[stock_symbol]
+    response_format=Weather,
 )
 news_agent.print_do(news_task)
