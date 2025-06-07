@@ -66,15 +66,13 @@ def connected_to_server(server_type: str, status: str, total_time: float = None)
     if total_time is not None:
         table.add_row("[bold]Total Time:[/bold]", f"[cyan]{total_time:.2f} seconds[/cyan]")
 
-    table.width = 60
-
+    
     # Wrap the table in a Panel that also expands full width
     panel = Panel(
         table, 
         title="[bold cyan]Upsonic - Server Connection[/bold cyan]",
         border_style="cyan",
         expand=True,  # panel takes the full terminal width
-        width=70  # Adjust as preferred
     )
 
     # Print the panel (it will fill the entire width, with two columns inside)
@@ -86,7 +84,6 @@ def call_end(result: Any, llm_model: str, response_format: str, start_time: floa
     # First panel for tool usage if there are any tools used
     if tool_usage and len(tool_usage) > 0:
         tool_table = Table(show_header=True, expand=True, box=None)
-        tool_table.width = 60
         
         # Add columns for the tool usage table
         tool_table.add_column("[bold]Tool Name[/bold]", justify="left")
@@ -116,7 +113,6 @@ def call_end(result: Any, llm_model: str, response_format: str, start_time: floa
             title=f"[bold cyan]Tool Usage Summary ({len(tool_usage)} tools)[/bold cyan]",
             border_style="cyan",
             expand=True,
-            width=70
         )
 
         console.print(tool_panel)
@@ -124,7 +120,6 @@ def call_end(result: Any, llm_model: str, response_format: str, start_time: floa
 
     # Second panel with main results
     table = Table(show_header=False, expand=True, box=None)
-    table.width = 60
 
     # Escape input values
     llm_model = escape_rich_markup(llm_model)
@@ -237,7 +232,6 @@ def call_end(result: Any, llm_model: str, response_format: str, start_time: floa
         title="[bold white]Upsonic - Call Result[/bold white]",
         border_style="white",
         expand=True,
-        width=70
     )
 
     console.print(panel)
@@ -249,7 +243,6 @@ def agent_end(result: Any, llm_model: str, response_format: str, start_time: flo
     # First panel for tool usage if there are any tools used
     if tool_usage and len(tool_usage) > 0:
         tool_table = Table(show_header=True, expand=True, box=None)
-        tool_table.width = 60
         
         # Add columns for the tool usage table
         tool_table.add_column("[bold]Tool Name[/bold]", justify="left")
@@ -279,7 +272,6 @@ def agent_end(result: Any, llm_model: str, response_format: str, start_time: flo
             title=f"[bold cyan]Tool Usage Summary ({len(tool_usage)} tools)[/bold cyan]",
             border_style="cyan",
             expand=True,
-            width=70
         )
 
         console.print(tool_panel)
@@ -287,7 +279,6 @@ def agent_end(result: Any, llm_model: str, response_format: str, start_time: flo
 
     # Main result panel
     table = Table(show_header=False, expand=True, box=None)
-    table.width = 60
 
     # Escape input values
     llm_model = escape_rich_markup(llm_model)
@@ -346,7 +337,6 @@ def agent_end(result: Any, llm_model: str, response_format: str, start_time: flo
         title="[bold white]Upsonic - Agent Result[/bold white]",
         border_style="white",
         expand=True,
-        width=70
     )
 
     console.print(panel)
@@ -355,7 +345,6 @@ def agent_end(result: Any, llm_model: str, response_format: str, start_time: flo
 
 def agent_total_cost(total_input_tokens: int, total_output_tokens: int, total_time: float, llm_model: str):
     table = Table(show_header=False, expand=True, box=None)
-    table.width = 60
     
     # Escape input values
     llm_model = escape_rich_markup(llm_model)
@@ -367,7 +356,6 @@ def agent_total_cost(total_input_tokens: int, total_output_tokens: int, total_ti
         title="[bold white]Upsonic - Agent Total Cost[/bold white]",
         border_style="white",
         expand=True,
-        width=70
     )
     console.print(panel)
     spacing()
@@ -396,7 +384,6 @@ def print_price_id_summary(price_id: str, task) -> dict:
 
     # Create a table for pretty printing
     table = Table(show_header=False, expand=True, box=None)
-    table.width = 60
 
     table.add_row("[bold]Price ID:[/bold]", f"[magenta]{price_id_display}[/magenta]")
     table.add_row("")  # Add spacing
@@ -409,7 +396,6 @@ def print_price_id_summary(price_id: str, task) -> dict:
         title="[bold magenta]Upsonic - Price ID Summary[/bold magenta]",
         border_style="magenta",
         expand=True,
-        width=70
     )
 
     console.print(panel)
@@ -419,7 +405,6 @@ def print_price_id_summary(price_id: str, task) -> dict:
 
 def agent_retry(retry_count: int, max_retries: int):
     table = Table(show_header=False, expand=True, box=None)
-    table.width = 60
 
     table.add_row("[bold]Retry Status:[/bold]", f"[yellow]Attempt {retry_count + 1} of {max_retries + 1}[/yellow]")
     
@@ -428,7 +413,6 @@ def agent_retry(retry_count: int, max_retries: int):
         title="[bold yellow]Upsonic - Agent Retry[/bold yellow]",
         border_style="yellow",
         expand=True,
-        width=70
     )
 
     console.print(panel)
@@ -464,7 +448,6 @@ def mcp_tool_operation(operation: str, result=None):
         result: The result of the operation, if available
     """
     table = Table(show_header=False, expand=True, box=None)
-    table.width = 60
     
     # Format the operation text
     operation_text = f"[bold cyan]{escape_rich_markup(operation)}[/bold cyan]"
@@ -481,7 +464,6 @@ def mcp_tool_operation(operation: str, result=None):
         title="[bold cyan]Upsonic - MCP Tool Operation[/bold cyan]",
         border_style="cyan",
         expand=True,
-        width=70
     )
     
     console.print(panel)
@@ -497,7 +479,6 @@ def error_message(error_type: str, detail: str, error_code: int = None):
         error_code: Optional HTTP status code
     """
     table = Table(show_header=False, expand=True, box=None)
-    table.width = 60
     
     # Add error code if provided
     if error_code:
@@ -513,7 +494,6 @@ def error_message(error_type: str, detail: str, error_code: int = None):
         title=f"[bold red]Upsonic - {escape_rich_markup(error_type)}[/bold red]",
         border_style="red",
         expand=True,
-        width=70
     )
     
     console.print(panel)
@@ -592,7 +572,6 @@ def tool_operation(operation: str, result=None):
         result: The result of the operation, if available
     """
     table = Table(show_header=False, expand=True, box=None)
-    table.width = 60
     
     # Format the operation text
     operation_text = f"[bold magenta]{escape_rich_markup(operation)}[/bold magenta]"
@@ -609,7 +588,6 @@ def tool_operation(operation: str, result=None):
         title="[bold magenta]Upsonic - Tool Operation[/bold magenta]",
         border_style="magenta",
         expand=True,
-        width=70
     )
     
     console.print(panel)
