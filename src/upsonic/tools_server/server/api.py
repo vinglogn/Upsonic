@@ -7,9 +7,33 @@ from starlette.responses import JSONResponse
 import threading
 import time
 import logging
+from logging import StreamHandler, Formatter
+from datetime import datetime
+import pytz
 
-# Configure logging
-logging.basicConfig(level=logging.ERROR)
+# 自定义 Formatter，支持 Asia/Shanghai 时区和自定义时间格式
+def shanghai_time(*args):
+    tz = pytz.timezone('Asia/Shanghai')
+    return datetime.now(tz).timetuple()
+
+class ShanghaiFormatter(Formatter):
+    def formatTime(self, record, datefmt=None):
+        tz = pytz.timezone('Asia/Shanghai')
+        ct = datetime.fromtimestamp(record.created, tz)
+        if datefmt:
+            s = ct.strftime(datefmt)
+        else:
+            s = ct.strftime("%Y-%m-%d %H:%M:%S")
+        return s
+
+log_format = (
+    "%(asctime)s [%(levelname)s] %(filename)s:%(lineno)d %(funcName)s() - %(message)s"
+)
+
+handler = StreamHandler()
+handler.setFormatter(ShanghaiFormatter(log_format, datefmt="%Y-%m-%d %H:%M:%S"))
+
+logging.basicConfig(level=logging.ERROR, handlers=[handler])
 logger = logging.getLogger(__name__)
 
 app = FastAPI()
