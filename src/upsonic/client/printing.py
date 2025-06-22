@@ -1,3 +1,4 @@
+from turtle import width
 from typing import Any
 from decimal import Decimal
 from rich.console import Console
@@ -73,6 +74,7 @@ def connected_to_server(server_type: str, status: str, total_time: float = None)
         title="[bold cyan]Upsonic - Server Connection[/bold cyan]",
         border_style="cyan",
         expand=True,  # panel takes the full terminal width
+        width=100
     )
 
     # Print the panel (it will fill the entire width, with two columns inside)
@@ -113,6 +115,7 @@ def call_end(result: Any, llm_model: str, response_format: str, start_time: floa
             title=f"[bold cyan]Tool Usage Summary ({len(tool_usage)} tools)[/bold cyan]",
             border_style="cyan",
             expand=True,
+            width=100
         )
 
         console.print(tool_panel)
@@ -232,6 +235,7 @@ def call_end(result: Any, llm_model: str, response_format: str, start_time: floa
         title="[bold white]Upsonic - Call Result[/bold white]",
         border_style="white",
         expand=True,
+        width=100
     )
 
     console.print(panel)
@@ -272,6 +276,7 @@ def agent_end(result: Any, llm_model: str, response_format: str, start_time: flo
             title=f"[bold cyan]Tool Usage Summary ({len(tool_usage)} tools)[/bold cyan]",
             border_style="cyan",
             expand=True,
+            width=100
         )
 
         console.print(tool_panel)
@@ -337,6 +342,7 @@ def agent_end(result: Any, llm_model: str, response_format: str, start_time: flo
         title="[bold white]Upsonic - Agent Result[/bold white]",
         border_style="white",
         expand=True,
+        width=100
     )
 
     console.print(panel)
@@ -356,6 +362,7 @@ def agent_total_cost(total_input_tokens: int, total_output_tokens: int, total_ti
         title="[bold white]Upsonic - Agent Total Cost[/bold white]",
         border_style="white",
         expand=True,
+        width=100
     )
     console.print(panel)
     spacing()
@@ -396,6 +403,7 @@ def print_price_id_summary(price_id: str, task) -> dict:
         title="[bold magenta]Upsonic - Price ID Summary[/bold magenta]",
         border_style="magenta",
         expand=True,
+        width=100
     )
 
     console.print(panel)
@@ -413,6 +421,7 @@ def agent_retry(retry_count: int, max_retries: int):
         title="[bold yellow]Upsonic - Agent Retry[/bold yellow]",
         border_style="yellow",
         expand=True,
+        width=100
     )
 
     console.print(panel)
@@ -464,6 +473,7 @@ def mcp_tool_operation(operation: str, result=None):
         title="[bold cyan]Upsonic - MCP Tool Operation[/bold cyan]",
         border_style="cyan",
         expand=True,
+        width=100
     )
     
     console.print(panel)
@@ -494,6 +504,7 @@ def error_message(error_type: str, detail: str, error_code: int = None):
         title=f"[bold red]Upsonic - {escape_rich_markup(error_type)}[/bold red]",
         border_style="red",
         expand=True,
+        width=100
     )
     
     console.print(panel)
@@ -588,6 +599,7 @@ def tool_operation(operation: str, result=None):
         title="[bold magenta]Upsonic - Tool Operation[/bold magenta]",
         border_style="magenta",
         expand=True,
+        width=100
     )
     
     console.print(panel)

@@ -654,7 +654,7 @@ class Graph(BaseModel):
                     title="[bold blue]Upsonic - Executing Task[/bold blue]",
                     border_style="blue",
                     expand=True,
-                    width=70
+                    width=100,
                 )
                 console.print(panel)
                 spacing()
@@ -691,7 +691,7 @@ class Graph(BaseModel):
                     title="[bold green]✅ Task Completed[/bold green]",
                     border_style="green",
                     expand=True,
-                    width=70
+                    width=100
                 )
                 console.print(panel)
                 spacing()
@@ -761,7 +761,7 @@ class Graph(BaseModel):
                 title="[bold yellow]🔀 Evaluating Decision[/bold yellow]",
                 border_style="yellow",
                 expand=True,
-                width=70
+                width=100
             )
             console.print(panel)
             spacing()
