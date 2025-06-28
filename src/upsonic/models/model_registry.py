@@ -34,6 +34,11 @@ ModelNames = Literal[
     "openrouter/meta-llama/llama-3.1-8b-instruct",
     "openrouter/google/gemini-pro",
     "openrouter/<provider>/<model>",
+    "openai/qwen-plus-latest",
+    "openai/qwen3-235b-a22b",
+    "openai/qwen3-30b-a3b",
+    "openai/qwen3-32b",
+    "openai/qwen3-14b",
 ]
 
 
@@ -271,6 +276,17 @@ def get_model_registry_entry(llm_model: str):
             "pricing": {"input": 0.0, "output": 0.0},
             "required_environment_variables": ["OPENROUTER_API_KEY"]
         }
+
+    if llm_model.startswith("openai/"):
+        # Extract the model name after openai/
+        model_name = llm_model.split("openai/", 1)[1]
+        return {
+            "provider": "openai",
+            "model_name": model_name,  # Use the full model name as provided
+            "capabilities": [],
+            "pricing": {"input": 0.0, "output": 0.0},
+            "required_environment_variables": ["OPENAI_API_KEY", "OPENAI_BASE_URL"]
+        }
     
     # Try case-insensitive match as fallback
     llm_model_lower = llm_model.lower()
@@ -293,6 +309,8 @@ def get_model_settings(llm_model: str, tools=None):
     """Get the appropriate model settings based on the model type."""
     # If no tools are provided, no model settings are needed
     if not tools:
+        if "qwen3" in llm_model:
+            return OpenAIModelSettings(parallel_tool_calls=False, extra_body={"enable_thinking":False})
         return None
     
     # Get model info from registry
@@ -318,7 +336,13 @@ def get_model_settings(llm_model: str, tools=None):
     # For all other models, return provider settings
     provider = model_info["provider"]
     if provider in MODEL_SETTINGS:
-        return MODEL_SETTINGS[provider]
+        model_settings = MODEL_SETTINGS[provider]
+        if "qwen3" in model_info["model_name"]:
+            import copy
+            model_settings = copy.deepcopy(model_settings)
+            model_settings["extra_body"] = {"enable_thinking":False}
+            return model_settings
+        return model_settings
     
     # Log when no settings match is found
     print(f"Warning: No model settings found for {llm_model}")
